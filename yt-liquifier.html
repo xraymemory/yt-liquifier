@@ -10,8 +10,8 @@
   }
 
   function changevid(val, element) {
-  	$(element).attr("src", $(val).value);
-  	return false;
+    $(element).attr("src", $(val).value);
+    return false;
   }
 
 </script>
@@ -37,10 +37,101 @@
   height: 100%;
   z-index: -100;
 }
+
+#vidblock2 {
+  padding-left: 150px;
+}
+
+/* start half-style hs-horizontal-third */
+.halfStyle.hs-horizontal-third { /* base char and also the bottom 1/3 */
+    position:relative;
+    display:inline-block;
+    font-size:80px; /* or any font size will work */
+    color: transparent;
+    overflow:hidden;
+    white-space: pre; /* to preserve the spaces from collapsing */
+    color: #f0f;
+    text-shadow: 20px 2px 0px #0bf; /* for demo purposes */
+}
+.halfStyle.hs-horizontal-third:before { /* creates the top 1/3 */
+    display:block;
+    z-index:2;
+    position:absolute;
+    top:0;
+    height: 33.33%;
+    content: attr(data-content); /* dynamic content for the pseudo element */
+    overflow:hidden;
+    pointer-events: none; /* so the base char is selectable by mouse */
+    color: #f00; /* for demo purposes */
+    text-shadow: 2px -2px 0px #fa0; /* for demo purposes */
+}
+.halfStyle.hs-horizontal-third:after { /* creates the middle 1/3 */
+    display:block;
+    position:absolute;
+    z-index:1;
+    top:0;
+    height: 66.66%;
+    content: attr(data-content); /* dynamic content for the pseudo element */
+    overflow:hidden;
+    pointer-events: none; /* so the base char is selectable by mouse */
+    color: #000; /* for demo purposes */
+    text-shadow: 2px 2px 0px #af0; /* for demo purposes */
+}
+/* end half-style hs-horizontal-third */
+
+/* start half-style hs-horizontal-third-small */
+.halfStyle.hs-horizontal-third-small { /* base char and also the bottom 1/3 */
+    position:relative;
+    display:inline-block;
+    font-size:20px; /* or any font size will work */
+    color: transparent;
+    overflow:hidden;
+    white-space: pre; /* to preserve the spaces from collapsing */
+    color: #f0f;
+    text-shadow: 20px 2px 0px #0bf; /* for demo purposes */
+}
+.halfStyle.hs-horizontal-third-small:before { /* creates the top 1/3 */
+    display:block;
+    z-index:2;
+    position:absolute;
+    top:0;
+    height: 33.33%;
+    content: attr(data-content); /* dynamic content for the pseudo element */
+    overflow:hidden;
+    pointer-events: none; /* so the base char is selectable by mouse */
+    color: #f00; /* for demo purposes */
+    text-shadow: 2px -2px 0px #fa0; /* for demo purposes */
+}
+.halfStyle.hs-horizontal-third-small:after { /* creates the middle 1/3 */
+    display:block;
+    position:absolute;
+    z-index:1;
+    top:0;
+    height: 66.66%;
+    content: attr(data-content); /* dynamic content for the pseudo element */
+    overflow:hidden;
+    pointer-events: none; /* so the base char is selectable by mouse */
+    color: #000; /* for demo purposes */
+    text-shadow: 2px 2px 0px #af0; /* for demo purposes */
+}
+/* end half-style hs-horizontal-third */
+  #textspan2 {
+    padding-left:500px;
+  }
+
+
+
 </style>
 </head>
 <body>
 <br>
+<div align="right">
+<span id="sitebloq" class="textToHalfStyle" data-halfstyle="hs-horizontal-third">yt-liquifier</span>
+</div>
+<span id="textspan1" class="textToHalfStyle" data-halfstyle="hs-horizontal-third-small">channel1 </span>
+<span id="textspan2" class="textToHalfStyle" data-halfstyle="hs-horizontal-third-small">channel2 </span>
+<br>
+<span id="vidblock1">
 <input type="range" name="rangeInput" min="0" max="100" oninput="updateTextInput(this.value, '#shade');" default="80"> 
 <input type="text" id="vid1" value="https://www.youtube.com/watch?v=ekeq4szDmJo" />
 <select id="compmode1">
@@ -61,9 +152,9 @@
   <option value="luminosity">luminosity</option>
 </select>
 <input type="button" id="vid1sub" value="Mix"/>
+</span>
 
-<br>
-<br />
+<span id="vidblock2">
 <input type="range" name="rangeInput" min="0" max="100" oninput="updateTextInput(this.value, '#shade1');" default="80"> 
 <input type="text" id="vid2" value="https://www.youtube.com/watch?v=UTtfVOyVsf0" />
 <select id="compmode2">
@@ -84,8 +175,13 @@
   <option value="luminosity">luminosity</option>
 </select>
 <input type="button" id="vid2sub" value="Mix"/>
+</span>
 <br />
 <br />
+<input type="button" id="generateUrl" value="Create url"/> <div id="shareUrl"></div>
+<br />
+<br />
+
 
 <iframe width="420" height="315" id="shade" src="https://www.youtube.com/embed/ekeq4szDmJo?autoplay=1">
 </iframe>
@@ -104,28 +200,28 @@
 };
 
 
-	// update text continously 
-	$('#vid1').on('input', function(e) {
-		var q = $(this).val();
-		$("#vid1").attr("value", q);
-	})
+  // update text continously 
+  $('#vid1').on('input', function(e) {
+    var q = $(this).val();
+    $("#vid1").attr("value", q);
+  })
 
-		$('#vid2').on('input', function(e) {
-		var q = $(this).val();
-		$("#vid2").attr("value", q);
-	})
+    $('#vid2').on('input', function(e) {
+    var q = $(this).val();
+    $("#vid2").attr("value", q);
+  })
 
-	$('#compmode1').on('input', function(e) {
-		var comp = $(this).val();
-		$("#shade").css("mix-blend-mode", comp);
+  $('#compmode1').on('input', function(e) {
+    var comp = $(this).val();
+    $("#shade").css("mix-blend-mode", comp);
 
-	})
+  })
 
-	$('#compmode2').on('input', function(e) {
-		var comp = $(this).val();
-		$("#shade1").css("mix-blend-mode", comp);
+  $('#compmode2').on('input', function(e) {
+    var comp = $(this).val();
+    $("#shade1").css("mix-blend-mode", comp);
 
-	})
+  })
 
   // update video based on input test
 
@@ -133,29 +229,146 @@
 
   function get_youtube_id(youtube_url) {
     var video_id = youtube_url.split('v=')[1];
-	  var ampersandPosition = video_id.indexOf('&');
-	  if(ampersandPosition != -1) {
-  	video_id = video_id.substring(0, ampersandPosition);
-	   }
-	   return video_id;
+    var ampersandPosition = video_id.indexOf('&');
+    if(ampersandPosition != -1) {
+    video_id = video_id.substring(0, ampersandPosition);
+     }
+     return video_id;
      }
 
   $("#vid1sub").click( function() {
-  	var embed_url = embed_url_template;
-  	var vid_id = get_youtube_id($("#vid1").attr("value"));
-  	var q = embed_url.supplant({id: vid_id});
-	var iframe = document.getElementById("shade");
-	iframe.src = q;
+    var embed_url = embed_url_template;
+    var vid_id = escapeHtml(get_youtube_id($("#vid1").attr("value")));
+    var q = embed_url.supplant({id: vid_id});
+  var iframe = document.getElementById("shade");
+  iframe.src = q;
   })
 
     $("#vid2sub").click( function() {
-  	var embed_url = embed_url_template;
-  	var vid_id = get_youtube_id($("#vid2").attr("value"));
-  	var q = embed_url.supplant({id: vid_id});
-	var iframe = document.getElementById("shade1");
-	iframe.src = q;
+    var embed_url = embed_url_template;
+    var vid_id = escapeHtml(get_youtube_id($("#vid2").attr("value")));
+    var q = embed_url.supplant({id: vid_id});
+  var iframe = document.getElementById("shade1");
+  iframe.src = q;
   })
 
+    $("#generateUrl").click( function () {
+      generateShareUrl();
+    })
+
+
+  function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+  };
+
+  function escapeHtml(str) {
+    if (str){
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
+  else {
+    return null;
+  }
+}  
+
+var v1 = escapeHtml(getUrlParameter("v1"));
+var v2 = escapeHtml(getUrlParameter("v2"));
+var op1 = escapeHtml(getUrlParameter("op1"));
+var op2 = escapeHtml(getUrlParameter("op2"));
+var comp1 = escapeHtml(getUrlParameter("comp1"));
+var comp2 = escapeHtml(getUrlParameter("comp2"));
+console.log(v1);
+
+
+if (v1) {
+    var embed_url = embed_url_template;
+    var vid_id = v1;
+    var q = embed_url.supplant({id: vid_id});
+    var iframe = document.getElementById("shade");
+    iframe.src = q;
+  }
+
+if (v2) {
+    var embed_url = embed_url_template;
+    var vid_id = v2;
+    var q = embed_url.supplant({id: vid_id});
+    var iframe = document.getElementById("shade1");
+    iframe.src = q;
+  }
+
+  if (op1) {
+    $("#shade").css("opacity", op1);
+  }
+
+  if (op2) {
+    $("#shade1").css("opacity", op2);
+  }
+
+  if (comp1) {
+    $("#shade").css("mix-blend-mode", comp1);
+  }
+
+  if (comp2) {
+    $("#shade").css("mix-blend-mode", comp2);
+  }
+
+function generateShareUrl(){
+  $("#shareUrl").empty();
+  var s_v1 = escapeHtml(get_youtube_id($("#vid1").attr("value")));
+  var s_v2 = escapeHtml(get_youtube_id($("#vid2").attr("value")));
+  var s_o1 = escapeHtml($("#shade").css("opacity"));
+  var s_o2 = escapeHtml($("#shade1").css("opacity"));
+  var s_c1 = escapeHtml($("#shade").css("mix-blend-mode"));
+  var s_c2 = escapeHtml($("#shade1").css("mix-blend-mode"));
+
+  var current_url = window.location.protocol + '//' + window.location.host + window.location.pathname
+  var share_params = "?v1="+s_v1+"&v2="+s_v2+"&op1="+s_o1+"&op2="+s_o2+"&comp1="+s_c1+"&comp2="+s_c2;
+  var share_url = current_url+share_params;
+  $("#shareUrl").append(share_url);
+  }
+  /*!
+ * HalfStyle
+ * Copyright 2014 Arbel Hakopian
+ * Licensed under MIT (https://github.com/arbelh/HalfStyle/blob/master/license.md)
+ */
+jQuery(function($) {
+    var halfstyle_text, halfstyle_chars, $halfstyle_el, halfstyle_i, halfstyle_output, halfstyle_style;
+
+    // Iterate over all class occurrences
+    $('.textToHalfStyle').each(function(idx, halfstyle_el) {
+        $halfstyle_el = $(halfstyle_el);
+        halfstyle_style = $halfstyle_el.data('halfstyle');
+        halfstyle_text = $halfstyle_el.text();
+        halfstyle_chars = halfstyle_text.split('');
+
+        // Set the screen-reader text
+        $halfstyle_el.html('<span style="position: absolute !important;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);">' + halfstyle_text + '</span>');
+
+        // Reset output for appending
+        halfstyle_output = '';
+
+        // Iterate over all chars in the text
+        for (halfstyle_i = 0; halfstyle_i < halfstyle_chars.length; halfstyle_i++) {
+            // Create a styled element for each character and append to container
+            halfstyle_output += '<span aria-hidden="true" class="halfStyle ' + halfstyle_style + '" data-content="' + halfstyle_chars[halfstyle_i] + '">' + halfstyle_chars[halfstyle_i] + '</span>';
+        }
+
+        // Write to DOM only once
+        $halfstyle_el.append(halfstyle_output);
+    });
+});
 
   </script>
 </body>
