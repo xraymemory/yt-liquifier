@@ -25,7 +25,7 @@
   left: 5px;
   z-index: 100;
   width: 100%;
-  height: 100%;
+  height: 70%;
 }
 
 #shade1 {
@@ -34,7 +34,7 @@
   position: absolute;
   left: 5px;
     width: 100%;
-  height: 100%;
+  height: 70%;
   z-index: -100;
 }
 
@@ -182,7 +182,7 @@
 </span>
 <br />
 <br />
-<input type="button" id="generateUrl" value="Create url"/> <div id="shareUrl"></div>
+<input type="button" id="generateUrl" value="Create url"/><br> <span id="shareUrl" id='textspan3' class='textToHalfStyle_gen' data-halfstyle='hs-horizontal-third-small'> </span><br>
 <br />
 <br />
 
@@ -340,17 +340,21 @@ function generateShareUrl(){
   var share_params = "?v1="+s_v1+"&v2="+s_v2+"&op1="+s_o1+"&op2="+s_o2+"&comp1="+s_c1+"&comp2="+s_c2;
   var share_url = current_url+share_params;
   $("#shareUrl").append(share_url);
+  $(".textToHalfStyle_gen").css({"font-size": "5px"});
+  jQuery(half_style($,'.textToHalfStyle_gen'));
+
   }
   /*!
  * HalfStyle
  * Copyright 2014 Arbel Hakopian
  * Licensed under MIT (https://github.com/arbelh/HalfStyle/blob/master/license.md)
  */
-jQuery(function($) {
+
+function half_style($, selector) {
     var halfstyle_text, halfstyle_chars, $halfstyle_el, halfstyle_i, halfstyle_output, halfstyle_style;
 
     // Iterate over all class occurrences
-    $('.textToHalfStyle').each(function(idx, halfstyle_el) {
+    $(selector).each(function(idx, halfstyle_el) {
         $halfstyle_el = $(halfstyle_el);
         halfstyle_style = $halfstyle_el.data('halfstyle');
         halfstyle_text = $halfstyle_el.text();
@@ -371,7 +375,9 @@ jQuery(function($) {
         // Write to DOM only once
         $halfstyle_el.append(halfstyle_output);
     });
-});
+};
+
+  jQuery(half_style($,'.textToHalfStyle'));
 
   </script>
 </body>
